@@ -17,6 +17,7 @@
 #define LV_OS_WINDOWS       5
 #define LV_OS_MQX           6
 #define LV_OS_SDL2          7
+#define LV_OS_THREADX       8
 #define LV_OS_CUSTOM        255
 
 #define LV_STDLIB_BUILTIN           0
@@ -265,6 +266,7 @@
  * - LV_OS_WINDOWS
  * - LV_OS_MQX
  * - LV_OS_SDL2
+ * - LV_OS_THREADX
  * - LV_OS_CUSTOM */
 #ifndef LV_USE_OS
     #ifdef CONFIG_LV_USE_OS
@@ -298,6 +300,34 @@
             #endif
         #else
             #define LV_USE_FREERTOS_TASK_NOTIFY 1
+        #endif
+    #endif
+#endif
+#if LV_USE_OS == LV_OS_THREADX
+    /** Size of memory, in bytes, available for ThreadX task stack allocation. */
+    #ifndef LV_THREADX_TASK_MEMORY_POOL_SIZE
+        #ifdef CONFIG_LV_THREADX_TASK_MEMORY_POOL_SIZE
+            #define LV_THREADX_TASK_MEMORY_POOL_SIZE CONFIG_LV_THREADX_TASK_MEMORY_POOL_SIZE
+        #else
+            #define LV_THREADX_TASK_MEMORY_POOL_SIZE    8192
+        #endif
+    #endif
+
+    /** Align start address of ThreadX task stack memory pool to this bytes. */
+    #ifndef LV_THREADX_TASK_MEMORY_POOL_ALIGN
+        #ifdef CONFIG_LV_THREADX_TASK_MEMORY_POOL_ALIGN
+            #define LV_THREADX_TASK_MEMORY_POOL_ALIGN CONFIG_LV_THREADX_TASK_MEMORY_POOL_ALIGN
+        #else
+            #define LV_THREADX_TASK_MEMORY_POOL_ALIGN   4
+        #endif
+    #endif
+
+    /** Max length, in characters, of ThreadX task name. Longer names will be truncated. */
+    #ifndef LV_THREADX_TASK_NAME_MAX_LENGTH
+        #ifdef CONFIG_LV_THREADX_TASK_NAME_MAX_LENGTH
+            #define LV_THREADX_TASK_NAME_MAX_LENGTH CONFIG_LV_THREADX_TASK_NAME_MAX_LENGTH
+        #else
+            #define LV_THREADX_TASK_NAME_MAX_LENGTH     32
         #endif
     #endif
 #endif
