@@ -219,10 +219,19 @@ LV_EXPORT_CONST_INT(LV_DRAW_BUF_ALIGN);
     #define LV_LOG_TRACE_ANIM       0
 #endif  /*LV_USE_LOG*/
 
-#if LV_USE_WAYLAND == 0
-    #define LV_WAYLAND_USE_DMABUF           0
-    #define LV_WAYLAND_WINDOW_DECORATIONS   0
-#endif /* LV_USE_WAYLAND */
+#if LV_USE_WAYLAND
+    /*Automatically detect wayland backend*/
+    #if LV_USE_G2D
+        #define LV_WAYLAND_USE_G2D 1
+        #define LV_WAYLAND_USE_SHM 0
+    #else
+        #define LV_WAYLAND_USE_G2D 0
+        #define LV_WAYLAND_USE_SHM 1
+    #endif
+#else
+    #define LV_WAYLAND_USE_G2D 0
+    #define LV_WAYLAND_USE_SHM 0
+#endif
 
 #if LV_USE_LINUX_DRM == 0
     #define LV_LINUX_DRM_USE_EGL     0
@@ -251,6 +260,7 @@ LV_EXPORT_CONST_INT(LV_DRAW_BUF_ALIGN);
     #define LV_USE_DEMO_EBIKE           0
     #define LV_USE_DEMO_HIGH_RES        0
     #define LV_USE_DEMO_SMARTWATCH      0
+    #define LV_USE_DEMO_GLTF            0
 #endif /* LV_BUILD_DEMOS */
 
 #ifndef LV_USE_LZ4
@@ -270,7 +280,7 @@ LV_EXPORT_CONST_INT(LV_DRAW_BUF_ALIGN);
 #endif
 
 #ifndef LV_USE_EGL
-	#define LV_USE_EGL LV_LINUX_DRM_USE_EGL
+    #define LV_USE_EGL LV_LINUX_DRM_USE_EGL
 #endif /* LV_USE_EGL */
 
 #if LV_USE_OS
@@ -300,3 +310,5 @@ LV_EXPORT_CONST_INT(LV_DRAW_BUF_ALIGN);
 
 fin.close()
 fout.close()
+
+check_for_tabs(LV_CONF_INTERNAL)
