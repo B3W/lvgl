@@ -44,13 +44,13 @@ typedef struct {
 } lv_thread_t;
 
 typedef struct {
-	UINT mutex_initialized;                         /**< Set to TX_TRUE if mutex is initialized, TX_FALSE otherwise. */
-	char* mutex_name;                               /**< ThreadX mutex name. */
-	TX_SEMAPHORE mutex_handle;                      /**< ThreadX mutex handle. */
+    UINT mutex_initialized;                         /**< Set to TX_TRUE if mutex is initialized, TX_FALSE otherwise. */
+    char * mutex_name;                              /**< ThreadX mutex name. */
+    TX_SEMAPHORE mutex_handle;                      /**< ThreadX mutex handle. */
 } lv_mutex_t;
 
 typedef struct {
-	UINT cond_initialized;                          /**< Set to TX_TRUE if condition variable is initialized, TX_FALSE otherwise. */
+    UINT cond_initialized;                          /**< Set to TX_TRUE if condition variable is initialized, TX_FALSE otherwise. */
     UINT cond_sync_signal;                          /**< Set to TX_TRUE if thread is signaled, TX_FALSE otherwise. */
 
     TX_SEMAPHORE cond_wait_semaphore;               /**< Threads block on this semaphore in lv_thread_sync_wait. */

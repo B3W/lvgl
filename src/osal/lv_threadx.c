@@ -16,7 +16,7 @@
 #if LV_USE_OS == LV_OS_THREADX
 
 #ifdef TX_INCLUDE_USER_DEFINE_FILE
-#include "tx_user.h"
+    #include "tx_user.h"
 #endif
 
 #include "../misc/lv_log.h"
@@ -73,10 +73,10 @@ static const UINT thread_priority_map[] = {
 };
 
 /* Name of semaphores associated with sync objects */
-static char* SYNC_SEM_NAME = "SyncSem";
+static char * SYNC_SEM_NAME = "SyncSem";
 
 /* Name of mutexes associated with sync objects */
-static char* SYNC_MUTEX_NAME = "SyncMutex";
+static char * SYNC_MUTEX_NAME = "SyncMutex";
 
 /**********************
  *      MACROS
@@ -292,7 +292,7 @@ lv_result_t lv_thread_sync_init(lv_thread_sync_t * sync)
         result = LV_RESULT_INVALID;
     }
 
-    if (result == LV_RESULT_OK) {
+    if(result == LV_RESULT_OK) {
         sync->cond_sync_mutex.mutex_name = SYNC_MUTEX_NAME;
         result = lv_mutex_init(&sync->cond_sync_mutex);
 
@@ -302,7 +302,7 @@ lv_result_t lv_thread_sync_init(lv_thread_sync_t * sync)
         }
     }
 
-    if (result == LV_RESULT_OK) {
+    if(result == LV_RESULT_OK) {
         sync->cond_sync_signal = TX_FALSE;
         sync->cond_waiting_threads = 0U;
         sync->cond_initialized = TX_TRUE;
@@ -470,7 +470,8 @@ static UINT byte_pool_wrapper_init(lv_byte_pool_wrapper_t * byte_pool_wrapper)
 {
     /* Calculate aligned start address for the byte pool backing memory */
     byte_pool_wrapper->byte_pool_buffer_address = byte_pool_wrapper->byte_pool_buffer;
-    byte_pool_wrapper->byte_pool_buffer_address = (UCHAR *)LV_ALIGN_UP((lv_uintptr_t)byte_pool_wrapper->byte_pool_buffer_address,
+    byte_pool_wrapper->byte_pool_buffer_address = (UCHAR *)LV_ALIGN_UP((lv_uintptr_t)
+                                                                       byte_pool_wrapper->byte_pool_buffer_address,
                                                                        LV_THREADX_TASK_MEMORY_POOL_ALIGN);
 
     UINT status = tx_byte_pool_create(&byte_pool_wrapper->byte_pool_handle,
